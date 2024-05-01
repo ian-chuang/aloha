@@ -18,9 +18,9 @@ class ImageRecorder:
         if init_node:
             rospy.init_node('image_recorder', anonymous=True)
         for cam_name in self.camera_names:
-            setattr(self, f'{cam_name}_image', None)
-            setattr(self, f'{cam_name}_secs', None)
-            setattr(self, f'{cam_name}_nsecs', None)
+            setattr(self, f'{cam_name}_image', np.zeros((480, 640, 3), dtype=np.uint8))
+            setattr(self, f'{cam_name}_secs', rospy.Time.now().secs)
+            setattr(self, f'{cam_name}_nsecs', rospy.Time.now().nsecs)
             if cam_name == 'cam_high':
                 callback_func = self.image_cb_cam_high
             elif cam_name == 'cam_low':
@@ -31,7 +31,7 @@ class ImageRecorder:
                 callback_func = self.image_cb_cam_right_wrist
             else:
                 raise NotImplementedError
-            rospy.Subscriber(f"/usb_{cam_name}/image_raw", Image, callback_func)
+            rospy.Subscriber(f"/{cam_name}/color/image_raw", Image, callback_func) 
             if self.is_debug:
                 setattr(self, f'{cam_name}_timestamps', deque(maxlen=50))
         time.sleep(0.5)

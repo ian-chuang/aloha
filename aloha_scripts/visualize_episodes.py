@@ -29,6 +29,8 @@ def load_hdf5(dataset_dir, dataset_name):
         for cam_name in root[f'/observations/images/'].keys():
             image_dict[cam_name] = root[f'/observations/images/{cam_name}'][()]
 
+            # print(image_dict[cam_name].shape)
+
     return qpos, qvel, effort, action, image_dict
 
 def main(args):
@@ -45,20 +47,20 @@ def main(args):
 
 
 def save_videos(video, dt, video_path=None):
-    if isinstance(video, list):
-        cam_names = list(video[0].keys())
-        h, w, _ = video[0][cam_names[0]].shape
+    if isinstance(video, dict):
+        cam_names = list(video.keys())
+        _, h, w, _ = video[cam_names[0]].shape
         w = w * len(cam_names)
         fps = int(1/dt)
+
         out = cv2.VideoWriter(video_path, cv2.VideoWriter_fourcc(*'mp4v'), fps, (w, h))
-        for ts, image_dict in enumerate(video):
-            images = []
-            for cam_name in cam_names:
-                image = image_dict[cam_name]
-                image = image[:, :, [2, 1, 0]] # swap B and R channel
-                images.append(image)
+        
+        for ts, images in enumerate(zip(*video.values())):
+            images = [image[:, :, [2, 1, 0]] for image in images] # swap B and R channel
             images = np.concatenate(images, axis=1)
+
             out.write(images)
+
         out.release()
         print(f'Saved video to: {video_path}')
     elif isinstance(video, dict):

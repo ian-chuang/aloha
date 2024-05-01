@@ -31,7 +31,7 @@ def press_to_start(master_bot):
     # disable torque for only gripper joint of master robot to allow user movement
     master_bot.dxl.robot_torque_enable("single", "gripper", False)
     print(f'Close the gripper to start')
-    close_thresh = -0.3
+    close_thresh = 0.0
     pressed = False
     while not pressed:
         gripper_pos = get_arm_gripper_positions(master_bot)
@@ -68,3 +68,36 @@ def teleop(robot_side):
 if __name__=='__main__':
     side = sys.argv[1]
     teleop(side)
+
+
+
+# puppet_bot_l = InterbotixManipulatorXS(robot_model="vx300s", group_name="arm", gripper_name="gripper", robot_name=f'puppet_left', init_node=True)
+#     master_bot_l = InterbotixManipulatorXS(robot_model="wx250s", group_name="arm", gripper_name="gripper", robot_name=f'master_left', init_node=False)
+#     puppet_bot_r = InterbotixManipulatorXS(robot_model="vx300s", group_name="arm", gripper_name="gripper", robot_name=f'puppet_right', init_node=False)
+#     master_bot_r = InterbotixManipulatorXS(robot_model="wx250s", group_name="arm", gripper_name="gripper", robot_name=f'master_right', init_node=False)
+
+#     puppet_bot_l.dxl.robot_reboot_motors("single", "gripper", True)
+#     puppet_bot_l.dxl.robot_set_operating_modes("group", "arm", "position")
+#     puppet_bot_l.dxl.robot_set_operating_modes("single", "gripper", "current_based_position")
+#     master_bot_l.dxl.robot_set_operating_modes("group", "arm", "position")
+#     master_bot_l.dxl.robot_set_operating_modes("single", "gripper", "position")
+
+#     puppet_bot_r.dxl.robot_reboot_motors("single", "gripper", True)
+#     puppet_bot_r.dxl.robot_set_operating_modes("group", "arm", "position")
+#     puppet_bot_r.dxl.robot_set_operating_modes("single", "gripper", "current_based_position")
+#     master_bot_r.dxl.robot_set_operating_modes("group", "arm", "position")
+#     master_bot_r.dxl.robot_set_operating_modes("single", "gripper", "position")
+
+#     torque_off(master_bot_l)
+#     torque_off(master_bot_r)
+#     torque_off(puppet_bot_l)
+#     torque_off(puppet_bot_r)
+
+#     while True:
+#         gripper_pos_master_l = get_arm_gripper_positions(master_bot_l)
+#         gripper_pos_puppet_l = get_arm_gripper_positions(puppet_bot_l)
+#         gripper_pos_master_r = get_arm_gripper_positions(master_bot_r)
+#         gripper_pos_puppet_r = get_arm_gripper_positions(puppet_bot_r)
+#         print(f'Master gripper pos left: {gripper_pos_master_l}, Puppet gripper pos left: {gripper_pos_puppet_l}')
+#         print(f'Master gripper pos right: {gripper_pos_master_r}, Puppet gripper pos right: {gripper_pos_puppet_r}')
+#         time.sleep(1.0)

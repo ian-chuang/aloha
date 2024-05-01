@@ -87,20 +87,48 @@
     type="static_transform_publisher"
     args="0 0.25 0 0 0 0 /world /$(arg robot_name_puppet_right)/base_link"/>
 
-  <node name="usb_cam_high" pkg="usb_cam" type="usb_cam_node" output="screen" >
-    <param name="video_device" value="/dev/CAM_HIGH" />
+
+
+  <include file="$(find realsense2_camera)/launch/rs_camera.launch">
+      <arg name="camera" value="cam_left_wrist"/>
+      <arg name="serial_no" value="230322272239"/>
+      <arg name="color_width" value="640"/>
+      <arg name="color_height" value="480"/>
+      <arg name="color_fps" value="60"/>
+
+  </include>
+  <include file="$(find realsense2_camera)/launch/rs_camera.launch">
+      <arg name="camera" value="cam_right_wrist"/>
+      <arg name="serial_no" value="230322270105"/>
+      <arg name="color_width" value="640"/>
+      <arg name="color_height" value="480"/>
+      <arg name="color_fps" value="60"/>
+  </include>
+  <!-- <include file="$(find realsense2_camera)/launch/rs_camera.launch">
+      <arg name="camera" value="cam_high"/>
+      <arg name="serial_no" value="230322270105"/>
+  </include>
+  <include file="$(find realsense2_camera)/launch/rs_camera.launch">
+      <arg name="camera" value="cam_low"/>
+      <arg name="serial_no" value="230322270105"/>
+  </include> -->
+
+  
+
+
+  <!-- <node name="usb_cam_high" pkg="usb_cam" type="usb_cam_node" output="screen" >
+    <param name="video_device" value="/dev/video" />
     <param name="framerate" value="60" />
     <param name="image_width" value="640" />
     <param name="image_height" value="480" />
-    <param name="pixel_format" value="yuyv" />
     <param name="camera_frame_id" value="usb_cam" />
     <param name="io_method" value="mmap"/>
     <param name="autofocus" value="false"/>
     <param name="focus" value="5"/>
     <param name="autoexposure" value="true"/>
-  </node>
+  </node> -->
 
-  <node name="usb_cam_low" pkg="usb_cam" type="usb_cam_node" output="screen" >
+  <!-- <node name="usb_cam_low" pkg="usb_cam" type="usb_cam_node" output="screen" >
     <param name="video_device" value="/dev/CAM_LOW" />
     <param name="framerate" value="60" />
     <param name="image_width" value="640" />
@@ -137,7 +165,7 @@
     <param name="autofocus" value="false"/>
     <param name="focus" value="40"/>
     <param name="autoexposure" value="true"/>
-  </node>
+  </node> -->
 
 
 

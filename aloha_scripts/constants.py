@@ -1,11 +1,11 @@
 ### Task parameters
 
-DATA_DIR = '<put your data dir here>'
+DATA_DIR = './save'
 TASK_CONFIGS = {
     'aloha_wear_shoe':{
         'dataset_dir': DATA_DIR + '/aloha_wear_shoe',
         'num_episodes': 50,
-        'episode_len': 1000,
+        'episode_len': 100,
         'camera_names': ['cam_high', 'cam_low', 'cam_left_wrist', 'cam_right_wrist']
     },
 }
@@ -22,10 +22,10 @@ PUPPET_GRIPPER_POSITION_OPEN = 0.05800
 PUPPET_GRIPPER_POSITION_CLOSE = 0.01844
 
 # Gripper joint limits (qpos[6])
-MASTER_GRIPPER_JOINT_OPEN = 0.3083
-MASTER_GRIPPER_JOINT_CLOSE = -0.6842
-PUPPET_GRIPPER_JOINT_OPEN = 1.4910
-PUPPET_GRIPPER_JOINT_CLOSE = -0.6213
+MASTER_GRIPPER_JOINT_OPEN = 0.71#0.3083
+MASTER_GRIPPER_JOINT_CLOSE = -.115#-0.6842
+PUPPET_GRIPPER_JOINT_OPEN = 0.08897#1.4910
+PUPPET_GRIPPER_JOINT_CLOSE = -1.0#-0.6213
 
 ############################ Helper functions ############################
 
